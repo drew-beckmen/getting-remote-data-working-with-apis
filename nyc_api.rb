@@ -1,9 +1,10 @@
 require 'net/http'
- require 'open-uri'
- require 'json'
- 
- class GetPrograms
+require 'open-uri'
+require 'json' #you can require both gems and libraries of code
 
+class GetPrograms
+
+  # Stored our API endpoint URL as a constant!
   URL = "http://data.cityofnewyork.us/resource/uvks-tn5n.json"
 
   def get_programs
@@ -13,13 +14,16 @@ require 'net/http'
   end
 
   def program_school
+    # we use the JSON library to parse the API response into nicely formatted JSON
     programs = JSON.parse(self.get_programs)
     programs.collect do |program|
       program["agency"]
     end
   end
-
 end
 
- programs = GetPrograms.new.get_programs
- puts programs
+# programs = GetPrograms.new.get_programs
+# puts programs
+
+programs = GetPrograms.new 
+puts programs.program_school.uniq
